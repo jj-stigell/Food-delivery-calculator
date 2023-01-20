@@ -1,0 +1,19 @@
+{
+  "name": "wolt-frontend-assignment",
+  "version": "0.1.0",
+  "description": "wolt internship frontend assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jj-stigell/wolt-frontend-assignment.git"
+  },
+  "author": "JS",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jj-stigell/wolt-frontend-assignment/issues"
+  },
+  "homepage": "https://github.com/jj-stigell/wolt-frontend-assignment#readme"
+}
