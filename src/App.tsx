@@ -1,11 +1,11 @@
 import React from 'react'
 import './App.css'
-import Home from './pages/home'
+import Calculator from './pages/Calculator'
 
-function App (): any {
+function App (): JSX.Element {
   return (
     <div className="App">
-      <Home />
+      <Calculator />
     </div>
   )
 }
