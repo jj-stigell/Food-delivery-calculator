@@ -1,7 +1,18 @@
+/* eslint-disable padded-blocks */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable no-multiple-empty-lines */
+import {
+  freeDeliveryLimit,
+  maxDeliveryFee,
+  surchargeLimit,
+  deliveryFeeBase,
+  deliveryExtended,
+  surcharge,
+  bulkFee
 
-export function calculateDeliveryFee (value: number, distance: number, itemCount: number, date: Date): number {
-  return value * 2
-}
+} from './config'
+import { Delivery } from '../types'
 
 /*
 If the cart value is less than 10€, a small order surcharge is added to the delivery price.
@@ -31,3 +42,55 @@ The delivery is free (0€) when the cart value is equal or more than 100€.
 During the Friday rush (3 - 7 PM UTC), the delivery fee (the total fee including possible surcharges)
 will be multiplied by 1.2x. However, the fee still cannot be more than the max (15€).
 */
+
+export function calculateDeliveryFee (data: Delivery): number {
+  let deliveryFee: number = deliveryFeeBase.fee
+
+  if (data.cartValue >= freeDeliveryLimit) return 0
+
+  if (data.cartValue < surchargeLimit) {
+    // Add surcharge to the deliveryFee
+    deliveryFee += surchargeLimit - data.cartValue
+  }
+
+  if (data.deliveryDistance > deliveryFeeBase.limit) {
+    // If distance more than base limit, increase fee according to extended fee, round the multiplyer up to closest whole number
+    const extededFeeMultiplyer: number = Math.ceil((data.deliveryDistance - deliveryFeeBase.limit) / deliveryExtended.limit)
+    deliveryFee += extededFeeMultiplyer * deliveryExtended.fee
+  }
+
+  if (data.itemCount >= surcharge.limit) {
+    // Add surcharge fee if item count is equal or higher than sircharge item limit
+    deliveryFee += (data.itemCount - surcharge.limit + 1) * surcharge.fee
+  }
+
+  if (data.itemCount >= bulkFee.limit) {
+    // Add extra bulk fee if item count is equal or higher than bulk limit
+    deliveryFee += (data.itemCount - bulkFee.limit + 1) * bulkFee.fee
+  }
+
+
+
+
+
+
+  /*
+During the Friday rush (3 - 7 PM UTC), the delivery fee (the total fee including possible surcharges)
+will be multiplied by 1.2x. However, the fee still cannot be more than the max (15€).
+  */
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  return Math.min(deliveryFee, maxDeliveryFee)
+}

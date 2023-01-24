@@ -76,13 +76,23 @@ const Form = (
         error={formik.touched.itemCount && Boolean(formik.errors.itemCount)}
         helperText={formik.touched.itemCount && formik.errors.itemCount}
       />
-        <TextField
+      <TextField
+        sx={{ p: 1 }}
+        fullWidth
+        id="orderDate"
+        name="orderDate"
+        label="Date"
+        type="date"
+        value={formik.values.orderDate}
+        onChange={(e) => { onChange(e) }}
+      />
+      <TextField
         sx={{ p: 1 }}
         fullWidth
         id="orderTime"
         name="orderTime"
         label="Time"
-        type="date"
+        type="time"
         value={formik.values.orderTime}
         onChange={(e) => { onChange(e) }}
       />

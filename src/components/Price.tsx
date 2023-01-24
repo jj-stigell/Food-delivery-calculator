@@ -6,7 +6,9 @@ const Price = (
   { deliveryData }:
   { deliveryData: Delivery }
 ): JSX.Element => {
-  const calculationResult: number = calculateDeliveryFee(deliveryData.cartValue, deliveryData.deliveryDistance, deliveryData.itemCount, deliveryData.orderTime)
+  console.log(deliveryData)
+  const calculationResult: number = calculateDeliveryFee(deliveryData)
+  // const calculationResult: number = calculateDeliveryFee(deliveryData.cartValue, deliveryData.deliveryDistance, deliveryData.itemCount, deliveryData.orderDate, deliveryData.orderTime)
 
   return (
     <>

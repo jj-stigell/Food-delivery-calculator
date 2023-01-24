@@ -10,6 +10,8 @@ export const validateDeliveryInput: yup.AnySchema = yup.object({
   itemCount: yup.number()
     .min(1, 'must be bigger than 0')
     .required('item count value required'),
-  orderTime: yup.date()
-    .required('delivery time and date required')
+  orderDate: yup.date()
+    .required('delivery date required'),
+  orderTime: yup.string()
+    .required('delivery time required')
 })
