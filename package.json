@@ -8,7 +8,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build:nolint": "DISABLE_ESLINT_PLUGIN=true npm run build",
-    "test": "react-scripts test",
+    "test": "jest --verbose",
     "eject": "react-scripts eject",
     "lint": "npx eslint `find . -name '*.ts*' -not -path './node_modules/*'`",
     "lint:fix": "npx eslint `find . -name '*.ts*' -not -path './node_modules/*'` --fix"
@@ -50,6 +50,7 @@
     "eslint-plugin-n": "^15.6.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.1",
+    "jest": "^27.5.1",
     "typescript": "^4.9.4"
   },
   "eslintConfig": {

@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import Form from '../components/Form'
-import Visualize from '../components/Visualize'
 import Price from '../components/Price'
+import Tip from '../components/Tip'
 import { Delivery } from '../types'
 import { initialDeliveryState } from '../utils/config'
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout'
 
 import {
   createTheme,
@@ -12,8 +11,8 @@ import {
   Box,
   Container,
   CssBaseline,
-  Avatar,
-  Typography
+  Typography,
+  Avatar
 } from '@mui/material'
 
 function Calculator (): JSX.Element {
@@ -22,25 +21,25 @@ function Calculator (): JSX.Element {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{ backgroundColor: '#00c2e8' }}>
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 1,
+            marginTop: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center'
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <ShoppingCartCheckoutIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Delivery fee calculator
-          </Typography>
-          <Form deliveryData={deliveryData} setDeliveryData={setDeliveryData} />
-          <Price deliveryData={deliveryData} />
-          <Visualize deliveryData={deliveryData} />
+          <Box sx={{ border: 1, borderRadius: '16px', borderColor: '#bef0ff' }}>
+            <Avatar alt="Wolt logo" src="../static/wolt-logo-vector-2021.png" />
+            <Typography component="h1" variant="h5">
+              Delivery fee calculator
+            </Typography>
+            <Form deliveryData={deliveryData} setDeliveryData={setDeliveryData} />
+            <Price deliveryData={deliveryData} />
+            <Tip deliveryData={deliveryData} />
+          </Box>
         </Box>
       </Container>
     </ThemeProvider>

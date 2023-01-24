@@ -1,5 +1,4 @@
-/* eslint-disable no-multiple-empty-lines */
-import { Delivery, Fee } from '../types'
+import { Delivery, Fee, WeeklyEvent } from '../types'
 
 export const initialDeliveryState: Delivery = {
   cartValue: 1,
@@ -46,28 +45,28 @@ export const deliveryExtended: Fee = { limit: 500, fee: 1 }
 export const surcharge: Fee = { limit: 5, fee: 0.50 }
 export const bulkFee: Fee = { limit: 12, fee: 1.20 }
 
-interface WeeklyEvent {
-  weekday: number
-  startTime: string
-  endTime: string
-  timeZone: string
-  multiplyer: number
-}
-
 /**
  * During the Friday rush (3 - 7 PM UTC), the delivery fee (the total fee including possible surcharges)
  * will be multiplied by 1.2x. However, the fee still cannot be more than the max (15€).
+ * Weekday is expressed as number, 0 = 'sunday', 1 = 'monday',..., 6 = 'Saturday'.
  */
-
-
-/**
- * Weekday is expressed as number, 0 = 'sunday', 1 = 'monday',..., 6 = 'Saturday'
- */
-
 export const rushHour: WeeklyEvent = {
   weekday: 5,
-  startTime: '3',
-  endTime: '7',
+  startHour: 15,
+  endHour: 19,
   timeZone: 'UTC',
-  multiplyer: 1.2
+  multiplier: 1.2
 }
+
+export const foodEmoji: string[] = [
+  '&#127846;',
+  '&#127849;',
+  '&#127829;',
+  '&#127828;',
+  '&#127789;',
+  '&#127791;',
+  '&#129369;',
+  '&#127857;',
+  '&#127837;',
+  '&#127843;'
+]

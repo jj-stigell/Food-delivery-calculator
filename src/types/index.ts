@@ -10,3 +10,11 @@ export interface Fee {
   limit: number
   fee: number
 }
+
+export interface WeeklyEvent {
+  weekday: number
+  startHour: number
+  endHour: number
+  timeZone: string
+  multiplier: number
+}

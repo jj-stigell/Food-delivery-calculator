@@ -4,20 +4,8 @@ import React from 'react'
 import { useFormik } from 'formik'
 import { Delivery } from '../types'
 import { validateDeliveryInput as validationSchema } from '../utils/validationSchemas'
-
-import {
-  Button,
-  TextField,
-  Box,
-  Container,
-  CssBaseline,
-  Avatar,
-  Typography
-} from '@mui/material'
-
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout'
-import { on } from 'events'
+import { TextField, Box } from '@mui/material'
+import { createTheme } from '@mui/material/styles'
 
 const theme = createTheme()
 
