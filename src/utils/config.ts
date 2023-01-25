@@ -1,5 +1,6 @@
 import { Delivery, Fee, WeeklyEvent } from '../types'
 
+/** Initial state for the delivery information. */
 export const initialDeliveryState: Delivery = {
   cartValue: 1,
   deliveryDistance: 900,
@@ -57,16 +58,3 @@ export const rushHour: WeeklyEvent = {
   timeZone: 'UTC',
   multiplier: 1.2
 }
-
-export const foodEmoji: string[] = [
-  '&#127846;',
-  '&#127849;',
-  '&#127829;',
-  '&#127828;',
-  '&#127789;',
-  '&#127791;',
-  '&#129369;',
-  '&#127857;',
-  '&#127837;',
-  '&#127843;'
-]

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Delivery } from '../types'
-import { hintCreator } from '../utils/hintCreator'
+import { hintCreator } from '../utils/helpers'
 
 const Tip = (
   { deliveryData }:

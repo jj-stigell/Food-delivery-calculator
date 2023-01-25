@@ -1,13 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React from 'react'
 import { useFormik } from 'formik'
 import { Delivery } from '../types'
 import { validateDeliveryInput as validationSchema } from '../utils/validationSchemas'
 import { TextField, Box } from '@mui/material'
-import { createTheme } from '@mui/material/styles'
-
-const theme = createTheme()
 
 const Form = (
   { deliveryData, setDeliveryData }:
@@ -16,7 +12,7 @@ const Form = (
   const formik = useFormik({
     initialValues: deliveryData,
     validationSchema,
-    onSubmit: (values) => {
+    onSubmit: (values: Delivery) => {
       setDeliveryData(values)
     }
   })
