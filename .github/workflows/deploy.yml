@@ -7,6 +7,8 @@ on:
 
 jobs:
   deployment_pipeline:
+    name: publish to production branch
+    permissions: write-all
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
