@@ -4,8 +4,8 @@
 
 - [Introduction](#introduction)
 - [Built with](#built-with)
-- [Running the program](#running-the-program)
-- [Docker](#docker)
+- [Running the app](#running-the-app)
+- [Running with Docker](#running-with-docker)
 
 ## Introduction
 
@@ -47,7 +47,7 @@ $ npm run test
 ```
 
 
-## Docker
+## Running with Docker
 
 If your local machine has different node version and issues come up during building or running the app.
 You can also run the application with Docker.
