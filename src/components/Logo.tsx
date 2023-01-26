@@ -1,6 +1,5 @@
 import React from 'react'
-import { Box } from '@mui/material'
-import logo from '../static/logo.png'
+import { Box, Typography } from '@mui/material'
 
 function Logo (): JSX.Element {
   return (
@@ -12,7 +11,9 @@ function Logo (): JSX.Element {
         alignItems: 'center'
       }}
     >
-      <img alt="Wolt logo" src={logo} style={{ width: 130, height: 60 }} />
+      <Typography variant="h2" color="white" component="h2">
+        Wolt
+      </Typography>
     </Box>
   )
 }

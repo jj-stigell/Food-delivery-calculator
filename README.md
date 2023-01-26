@@ -1,48 +1,65 @@
-# wolt-frontend-assignment
+# Wolt Delivery Fee Calculator Frontend Assignment
 
-# Getting Started with Create React App
+## Table of Contents
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [Introduction](#introduction)
+- [Built with](#built-with)
+- [Running the program](#running-the-program)
+- [Docker](#docker)
 
-## Available Scripts
+## Introduction
 
-In the project directory, you can run:
+Frontend assignment for the Wolt [intership](https://github.com/woltapp/engineering-summer-intern-2023).
+Delivery fee calculator app calculates a delivery fee based on user input and shows the calculated delivery fee to the user.
 
-### `npm start`
+App parameters (delivery fees, distances, default cart, etc.) can be changed from the config.ts file in directory /src/config
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Demo running at https://delivery-calculator.onrender.com/ (Running on free tier so give it minute or two to start up)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+## Built with
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [React](https://reactjs.org/) with [typescript](https://www.typescriptlang.org/) and [Node.js](https://nodejs.org/en/) [v16.15.1](https://nodejs.org/tr/blog/release/v16.15.1/)
+- Calculator form with [Formik](https://github.com/jaredpalmer/formik) and [Yup](https://github.com/jquense/yup) validation
+- Stylized components with [MUI](https://github.com/mui/material-ui)
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Running the app
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Install the necessary Node.js modules at the project root:
+```
+$ npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Start the app on local machine, this will expose the app to localhost port [3000](http://localhost:3000/):
+```
+$ npm run start
+```
 
-### `npm run eject`
+Create a production optimized build from the project:
+```
+$ npm run build
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Tests can be run with the command:
+```
+$ npm run test
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Docker
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+If your local machine has different node version and issues come up during building or running the app.
+You can also run the application with Docker.
 
-## Learn More
+To build the Docker image run command in the project root:
+```
+$ docker build . -t delivery-calculator
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+After image has been build you can run the container with command:
+```
+$ docker run -p 3000:3000 -d delivery-calculator
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+App will run in the localhost port [3000](http://localhost:3000/)

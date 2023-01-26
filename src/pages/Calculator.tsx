@@ -3,7 +3,7 @@ import Form from '../components/Form'
 import Price from '../components/Price'
 import Tip from '../components/Tip'
 import { Delivery } from '../types'
-import { initialDeliveryState } from '../utils/config'
+import { initialDeliveryState } from '../config/config'
 import {
   createTheme,
   ThemeProvider,

@@ -1,0 +1,32 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deployment_pipeline:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+      - uses: actions/checkout@master
+        with:
+          node-version: '16'
+      - name: intall dependencies
+        run: npm ci
+      - name: run tests
+        id: test
+        run: npm run test
+      - name: run lint
+        id: lint
+        run: npm run lint
+      - name: push to production branch         # if tests and lint pass copy to production branch
+        if: ${{ steps.test.outcome == 'success' && steps.lint.outcome == 'success' }}
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: main
+          target_branch: production
+          github_token: ${{ secrets.GITHUB_TOKEN }}

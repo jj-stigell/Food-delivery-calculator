@@ -1,7 +1,7 @@
 import React from 'react'
 import { Delivery } from '../types'
 import { calculateDeliveryFee } from '../utils/calculateDelivery'
-import { freeDeliveryLimit } from '../utils/config'
+import { freeDeliveryLimit } from '../config/config'
 import ProgressBar from './ProgressBar'
 
 const Price = (

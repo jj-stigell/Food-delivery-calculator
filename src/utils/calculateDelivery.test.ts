@@ -3,7 +3,7 @@
 /* eslint-disable no-multiple-empty-lines */
 /* eslint-disable padded-blocks */
 
-import * as config from './config'
+import * as config from '../config/config'
 import { calculateDeliveryFee } from './calculateDelivery'
 import { Delivery } from '../types'
 
@@ -15,25 +15,42 @@ export interface Delivery {
   orderDate: Date
   orderTime: string
 }
+
+export const initialDeliveryState: Delivery = {
+  cartValue: 1,
+  deliveryDistance: 900,
+  itemCount: 1,
+  orderDate: new Date('2023-01-01'),
+  orderTime: '10:00'
+}
 */
+
+let testCart: Delivery = config.initialDeliveryState
+let deliveryFee: number
+
+afterEach(() => {
+  testCart = config.initialDeliveryState
+})
 
 describe('Test delivery calculator', () => {
   
-  it('Delivery should be free (0 euro) when cart value is equal or higher than freeDeliveryLimit', async () => {
-
-    const testCart: Delivery = config.initialDeliveryState
-
-    // should be free when equal to limit
-    let deliveryFee: number = calculateDeliveryFee({ ...testCart, cartValue: config.freeDeliveryLimit })
+  it(`Delivery fee should be free (0 euro) when cart value is equal or higher than 'freeDeliveryLimit' ${config.freeDeliveryLimit}`, async () => {
+    // should be 0 when equal to limit
+    deliveryFee = calculateDeliveryFee({ ...testCart, cartValue: config.freeDeliveryLimit })
     expect(deliveryFee).toBe(0)
 
-    // should be free when over the limit
+    // should be 0 when over the limit
     deliveryFee = calculateDeliveryFee({ ...testCart, cartValue: config.freeDeliveryLimit + 1 })
     expect(deliveryFee).toBe(0)
-
-    // should be not be free when over the limit
-    deliveryFee = calculateDeliveryFee({ ...testCart, cartValue: config.freeDeliveryLimit - 1 })
-    expect(deliveryFee).not.toBe(0)
   })
 
+  it(`Delivery fee should not be free (0 euro) when cart value is less than 'freeDeliveryLimit' ${config.freeDeliveryLimit}`, async () => {
+    deliveryFee = calculateDeliveryFee({ ...testCart, cartValue: config.freeDeliveryLimit - 0.01 })
+    expect(deliveryFee).toBeGreaterThan(0)
+  })
+
+  it(`Maximum delivery fee should not be over the 'maxDeliveryFee' ${config.maxDeliveryFee}`, async () => {
+    deliveryFee = calculateDeliveryFee({ ...testCart, itemCount: 100 })
+    expect(deliveryFee).toBe(config.maxDeliveryFee)
+  })
 })

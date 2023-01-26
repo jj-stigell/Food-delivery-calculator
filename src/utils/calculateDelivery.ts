@@ -7,7 +7,7 @@ import {
   surcharge,
   bulkFee,
   rushHour
-} from './config'
+} from '../config/config'
 import { Delivery } from '../types'
 
 export function calculateDeliveryFee (data: Delivery): number {

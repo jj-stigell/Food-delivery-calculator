@@ -1,17 +1,22 @@
 import * as yup from 'yup'
 
 export const validateDeliveryInput: yup.AnySchema = yup.object({
-  cartValue: yup.number()
+  cartValue: yup
+    .number()
     .min(1, 'must be bigger than 0')
     .required('cart value required'),
-  deliveryDistance: yup.number()
+  deliveryDistance: yup
+    .number()
     .min(1, 'must be bigger than 0')
     .required('delivery distance value required'),
-  itemCount: yup.number()
+  itemCount: yup
+    .number()
     .min(1, 'must be bigger than 0')
     .required('item count value required'),
-  orderDate: yup.date()
+  orderDate: yup
+    .date()
     .required('delivery date required'),
-  orderTime: yup.string()
+  orderTime: yup
+    .string()
     .required('delivery time required')
 })
