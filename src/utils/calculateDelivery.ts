@@ -9,17 +9,15 @@ import {
   rushHour
 } from '../config/config'
 import { Delivery } from '../types'
+import { insideEvent, addSurcharge } from './helpers'
 
 export function calculateDeliveryFee (data: Delivery): number {
   let deliveryFee: number = deliveryFeeBase.fee
-  const deliveryDate: Date = new Date(`${data.orderDate.toString()}T${data.orderTime}`)
+  const deliveryDateAndTime: Date = new Date(`${data.orderDate.toString()}T${data.orderTime}`)
 
   if (data.cartValue >= freeDeliveryLimit) return 0
 
-  if (data.cartValue < surchargeLimit) {
-    // Add surcharge to the deliveryFee
-    deliveryFee += surchargeLimit - data.cartValue
-  }
+  deliveryFee += addSurcharge(data.cartValue, surchargeLimit)
 
   if (data.deliveryDistance > deliveryFeeBase.limit) {
     // If distance more than base limit, increase fee according to extended fee, round the multiplier up to closest whole number
@@ -37,14 +35,11 @@ export function calculateDeliveryFee (data: Delivery): number {
     deliveryFee += (data.itemCount - bulkFee.limit + 1) * bulkFee.fee
   }
 
-  if (
-    deliveryDate.getDay() === rushHour.weekday &&
-    deliveryDate.getHours() >= rushHour.startHour &&
-    deliveryDate.getHours() <= rushHour.endHour
-  ) {
+  if (insideEvent(deliveryDateAndTime, rushHour)) {
     // If rush hour add fee accordingly
     deliveryFee *= rushHour.multiplier
   }
 
+  // Return minimum from delivery fee and maxFreeDelivery
   return Math.min(deliveryFee, maxDeliveryFee)
 }
