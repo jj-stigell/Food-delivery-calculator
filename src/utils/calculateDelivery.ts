@@ -4,12 +4,12 @@ import {
   surchargeLimit,
   deliveryFeeBase,
   deliveryExtended,
-  surcharge,
-  bulkFee,
+  itemSurcharge,
+  bulkItemFee,
   rushHour
 } from '../config/config'
 import { Delivery } from '../types'
-import { insideEvent, addSurcharge } from './helpers'
+import { insideEvent, addSurcharge, addExtraItemFee } from './helpers'
 
 export function calculateDeliveryFee (data: Delivery): number {
   let deliveryFee: number = deliveryFeeBase.fee
@@ -25,18 +25,11 @@ export function calculateDeliveryFee (data: Delivery): number {
     deliveryFee += extededFeeMultiplier * deliveryExtended.fee
   }
 
-  if (data.itemCount >= surcharge.limit) {
-    // Add surcharge fee if item count is equal or higher than sircharge item limit
-    deliveryFee += (data.itemCount - surcharge.limit + 1) * surcharge.fee
-  }
-
-  if (data.itemCount >= bulkFee.limit) {
-    // Add extra bulk fee if item count is equal or higher than bulk limit
-    deliveryFee += (data.itemCount - bulkFee.limit + 1) * bulkFee.fee
-  }
+  deliveryFee += addExtraItemFee(data.itemCount, itemSurcharge)
+  deliveryFee += addExtraItemFee(data.itemCount, bulkItemFee)
 
   if (insideEvent(deliveryDateAndTime, rushHour)) {
-    // If rush hour add fee accordingly
+    // If rush hour, multiply fee accordingly
     deliveryFee *= rushHour.multiplier
   }
 
