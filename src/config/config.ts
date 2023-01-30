@@ -43,8 +43,8 @@ export const deliveryExtended: Fee = { limit: 500, fee: 1 }
  * Example 3: If the number of items is 10, 3€ surcharge (6 x 50 cents) is added
  * Example 4: If the number of items is 13, 5,70€ surcharge is added ((9 * 50 cents) + 1,20€)
  */
-export const surcharge: Fee = { limit: 5, fee: 0.50 }
-export const bulkFee: Fee = { limit: 12, fee: 1.20 }
+export const itemSurcharge: Fee = { limit: 5, fee: 0.50 }
+export const bulkItemFee: Fee = { limit: 12, fee: 1.20 }
 
 /**
  * During the Friday rush (3 - 7 PM UTC), the delivery fee (the total fee including possible surcharges)

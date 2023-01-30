@@ -1,14 +1,35 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React from 'react'
+import * as yup from 'yup'
 import { useFormik } from 'formik'
 import { Delivery } from '../../types'
-import { validateDeliveryInput as validationSchema } from '../../utils/validationSchemas'
 import { TextField, Box } from '@mui/material'
 
 const Form = (
   { deliveryData, setDeliveryData }:
   { deliveryData: Delivery, setDeliveryData: React.Dispatch<React.SetStateAction<Delivery>> }
 ): JSX.Element => {
+  const validationSchema: yup.AnySchema = yup.object({
+    cartValue: yup
+      .number()
+      .min(1, 'must be bigger than 0')
+      .required('cart value required'),
+    deliveryDistance: yup
+      .number()
+      .min(1, 'must be bigger than 0')
+      .required('delivery distance value required'),
+    itemCount: yup
+      .number()
+      .min(1, 'must be bigger than 0')
+      .required('item count value required'),
+    orderDate: yup
+      .date()
+      .required('delivery date required'),
+    orderTime: yup
+      .string()
+      .required('delivery time required')
+  })
+
   const formik = useFormik({
     initialValues: deliveryData,
     validationSchema,

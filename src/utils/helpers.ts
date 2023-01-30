@@ -1,12 +1,13 @@
 import {
   freeDeliveryLimit,
   deliveryFeeBase,
+  maxDeliveryFee,
   surchargeLimit,
-  surcharge,
-  bulkFee,
+  itemSurcharge,
+  bulkItemFee,
   rushHour
 } from '../config/config'
-import { Delivery, WeeklyEvent } from '../types'
+import { Delivery, Fee, WeeklyEvent } from '../types'
 
 /**
  * Normalizes value to range of 0 to 100.
@@ -46,6 +47,19 @@ export function addSurcharge (cartValue: number, surchargeLimit: number): number
 }
 
 /**
+ * Add extra fee for each item over the extraCharge limit.
+ * Multiply by extraCharge fee with the amount of items over the limit.
+ * @param {number} itemCount - How many items.
+ * @param {Fee} extraCharge - Contains the limit after which extra charge is added and fee per item.
+ */
+export function addExtraItemFee (itemCount: number, extraCharge: Fee): number {
+  if (itemCount >= extraCharge.limit) {
+    return (itemCount - extraCharge.limit + 1) * extraCharge.fee
+  }
+  return 0
+}
+
+/**
  * Returns short hint message concerning the delivery status.
  * @param {Delivery} data - Delivery data.
  * @returns {string} - String message.
@@ -53,6 +67,10 @@ export function addSurcharge (cartValue: number, surchargeLimit: number): number
 export function hintCreator (data: Delivery): string {
   if (data.cartValue >= freeDeliveryLimit) {
     return 'FREE DELIVERY!!! 😍😍😍'
+  }
+
+  if (data.cartValue >= maxDeliveryFee) {
+    return `Maximum delivery fee of ${maxDeliveryFee} reached 🤑`
   }
 
   // There is exists a limit to laziness...
@@ -76,12 +94,12 @@ export function hintCreator (data: Delivery): string {
     return `Fridays can be quite busy, beware of the rush hour fee between ${rushHour.startHour} - ${rushHour.endHour}! 😓`
   }
 
-  if (data.itemCount >= bulkFee.limit) {
-    return `If item count is equal or over ${bulkFee.limit}, a separate bulk fee of ${bulkFee.fee} € is added per item over ${bulkFee.limit}. 😵`
+  if (data.itemCount >= bulkItemFee.limit) {
+    return `If item count is equal or over ${bulkItemFee.limit}, a separate bulk fee of ${bulkItemFee.fee} € is added per item over ${bulkItemFee.limit}. 😵`
   }
 
-  if (data.itemCount >= surcharge.limit) {
-    return `If item count is equal or over ${surcharge.limit}, a separate surcharge fee of ${surcharge.fee} € is added per item over ${surcharge.limit}. 🫣`
+  if (data.itemCount >= itemSurcharge.limit) {
+    return `If item count is equal or over ${itemSurcharge.limit}, a separate surcharge fee of ${itemSurcharge.fee} € is added per item over ${itemSurcharge.limit}. 🫣`
   }
 
   return `Let's calculate the delivery fees! Base fee is ${deliveryFeeBase.fee} € + possible surcharge when when cart value less than surcharge limit ${surchargeLimit} € 🚴🏻‍♀️🚴🏽‍♀️`
