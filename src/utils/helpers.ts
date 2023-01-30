@@ -16,10 +16,10 @@ import { Delivery, WeeklyEvent } from '../types'
  * @returns {number} - Normalized value.
  */
 export function normalize (value: number, MIN: number, MAX: number): number {
-  if (value > MAX || value < MIN) {
-    throw new Error('value must be between MIN and MAX')
-  }
-  return ((value - MIN) * 100) / (MAX - MIN)
+  let fixedValue = value
+  if (value > MAX) fixedValue = MAX
+  if (value < MIN) fixedValue = MIN
+  return ((fixedValue - MIN) * 100) / (MAX - MIN)
 }
 
 /**

@@ -48,18 +48,12 @@ describe('Test helper functions', () => {
       expect(normalize(467, 233, 658)).toBeCloseTo(55.05, 1)
     })
 
-    it('Return error when value higher than MAX', async () => {
-      function testError (): number {
-        return normalize(101, 0, 100)
-      }
-      expect(testError).toThrowError('value must be between MIN and MAX')
+    it('Return 100 when value higher than MAX', async () => {
+      expect(normalize(101, 0, 100)).toBe(100)
     })
 
-    it('Return error when value lower than MIN', async () => {
-      function testError (): number {
-        return normalize(-1, 0, 100)
-      }
-      expect(testError).toThrowError('value must be between MIN and MAX')
+    it('Return 0 when value lower than MIN', async () => {
+      expect(normalize(-1, 0, 100)).toBe(0)
     })
   })
 

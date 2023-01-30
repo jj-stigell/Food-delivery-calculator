@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React from 'react'
 import { useFormik } from 'formik'
-import { Delivery } from '../types'
-import { validateDeliveryInput as validationSchema } from '../utils/validationSchemas'
+import { Delivery } from '../../types'
+import { validateDeliveryInput as validationSchema } from '../../utils/validationSchemas'
 import { TextField, Box } from '@mui/material'
 
 const Form = (

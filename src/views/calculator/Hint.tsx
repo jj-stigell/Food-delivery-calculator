@@ -1,8 +1,8 @@
 import React from 'react'
-import { Delivery } from '../types'
-import { hintCreator } from '../utils/helpers'
+import { Delivery } from '../../types'
+import { hintCreator } from '../../utils/helpers'
 
-const Tip = (
+const Hint = (
   { deliveryData }:
   { deliveryData: Delivery }
 ): JSX.Element => {
@@ -10,9 +10,9 @@ const Tip = (
 
   return (
     <>
-      <p>{hint}</p>
+      {hint}
     </>
   )
 }
 
-export default Tip
+export default Hint

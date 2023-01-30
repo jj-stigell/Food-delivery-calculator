@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import Form from '../components/Form'
-import Price from '../components/Price'
-import Tip from '../components/Tip'
-import { Delivery } from '../types'
-import { initialDeliveryState } from '../config/config'
+import Form from './Form'
+import Price from './Price'
+import Hint from './Hint'
+import { Delivery } from '../../types'
+import { initialDeliveryState } from '../../config/config'
 import {
   createTheme,
   ThemeProvider,
@@ -34,7 +34,7 @@ function Calculator (): JSX.Element {
           </Typography>
           <Form deliveryData={deliveryData} setDeliveryData={setDeliveryData} />
           <Price deliveryData={deliveryData} />
-          <Tip deliveryData={deliveryData} />
+          <Hint deliveryData={deliveryData} />
         </Box>
       </Container>
     </ThemeProvider>
