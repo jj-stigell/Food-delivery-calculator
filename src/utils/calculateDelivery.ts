@@ -1,3 +1,5 @@
+import { insideEvent, addSurcharge, addExtraItemFee, distanceFee } from './helpers'
+import { Delivery } from '../types'
 import {
   freeDeliveryLimit,
   maxDeliveryFee,
@@ -8,30 +10,29 @@ import {
   bulkItemFee,
   rushHour
 } from '../config/config'
-import { Delivery } from '../types'
-import { insideEvent, addSurcharge, addExtraItemFee } from './helpers'
 
-export function calculateDeliveryFee (data: Delivery): number {
-  let deliveryFee: number = deliveryFeeBase.fee
-  const deliveryDateAndTime: Date = new Date(`${data.orderDate.toString()}T${data.orderTime}`)
+/**
+ * Calculates the order delivery fee based on cart value, distance, item count and time of the order.
+ * Uses helper functions for calculations.
+ * @param {Delivery} deliveryData - Delivery data.
+ * @returns {number} - Delivery fee amount.
+ */
+export function calculateDeliveryFee (deliveryData: Delivery): number {
+  // Return 0 if cart value reaches the freeDeliveryLimit
+  if (deliveryData.cartValue >= freeDeliveryLimit) return 0
 
-  if (data.cartValue >= freeDeliveryLimit) return 0
+  // Initialize delivery fee with the distance fee included
+  let deliveryFee: number = distanceFee(deliveryData, deliveryFeeBase, deliveryExtended)
 
-  deliveryFee += addSurcharge(data.cartValue, surchargeLimit)
+  // Add surcharges
+  deliveryFee += addSurcharge(deliveryData.cartValue, surchargeLimit)
 
-  if (data.deliveryDistance > deliveryFeeBase.limit) {
-    // If distance more than base limit, increase fee according to extended fee, round the multiplier up to closest whole number
-    const extededFeeMultiplier: number = Math.ceil((data.deliveryDistance - deliveryFeeBase.limit) / deliveryExtended.limit)
-    deliveryFee += extededFeeMultiplier * deliveryExtended.fee
-  }
+  // Add item surcharges and bulk fees accordingly
+  deliveryFee += addExtraItemFee(deliveryData.itemCount, itemSurcharge)
+  deliveryFee += addExtraItemFee(deliveryData.itemCount, bulkItemFee)
 
-  deliveryFee += addExtraItemFee(data.itemCount, itemSurcharge)
-  deliveryFee += addExtraItemFee(data.itemCount, bulkItemFee)
-
-  if (insideEvent(deliveryDateAndTime, rushHour)) {
-    // If rush hour, multiply fee accordingly
-    deliveryFee *= rushHour.multiplier
-  }
+  // If during rush hour time, multiply fee accordingly
+  if (insideEvent(new Date(`${deliveryData.orderDate.toString()}T${deliveryData.orderTime}`), rushHour)) deliveryFee *= rushHour.multiplier
 
   // Return minimum from delivery fee and maxFreeDelivery
   return Math.min(deliveryFee, maxDeliveryFee)
