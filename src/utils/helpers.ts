@@ -59,16 +59,31 @@ export function addExtraItemFee (itemCount: number, extraCharge: Fee): number {
   }
   return 0
 }
+/**
+ * Calculate delivery fee based on initial distance + extented distance.
+ * @param {Delivery} deliveryData - Delivery data.
+ * @param {Fee} deliveryFeeBase - Base delivery starting distance and unit price.
+ * @param {Fee} deliveryExtended - Extended delivery starting distance and unit price.
+ * @returns {number} - Delivery fee amount for particular distance.
+ */
+export function distanceFee (deliveryData: Delivery, deliveryFeeBase: Fee, deliveryExtended: Fee): number {
+  // If distance more than base limit, increase fee according to extended fee, round the multiplier up to closest whole number
+  if (deliveryData.deliveryDistance > deliveryFeeBase.limit) {
+    const extendedFeeMultiplier: number = Math.ceil((deliveryData.deliveryDistance - deliveryFeeBase.limit) / deliveryExtended.limit)
+    return extendedFeeMultiplier * deliveryExtended.fee
+  }
+  return deliveryFeeBase.fee
+}
 
 /**
  * Returns short hint message concerning the delivery status.
- * @param {Delivery} data - Delivery data.
+ * @param {Delivery} deliveryData - Delivery data.
  * @returns {string} - String message.
  */
-export function hintCreator (data: Delivery): string {
-  const deliveryFee = calculateDeliveryFee(data)
+export function hintCreator (deliveryData: Delivery): string {
+  const deliveryFee = calculateDeliveryFee(deliveryData)
 
-  if (data.cartValue >= freeDeliveryLimit) {
+  if (deliveryData.cartValue >= freeDeliveryLimit) {
     return 'FREE DELIVERY!!! 😍😍😍'
   }
 
@@ -77,16 +92,16 @@ export function hintCreator (data: Delivery): string {
   }
 
   // There is exists a limit to laziness...
-  if (data.deliveryDistance < 100) {
+  if (deliveryData.deliveryDistance < 100) {
     return 'At this distance maybe it would be better to just walk... 🙄'
   }
 
   // If delivery is close to free delivery, give a hint to add some stuff
-  if (freeDeliveryLimit - data.cartValue < 10) {
-    return `You are close to free delivery, just add ${freeDeliveryLimit - data.cartValue} € worth of stuff in the cart and the delivery is free! 👀🔥🔥`
+  if (freeDeliveryLimit - deliveryData.cartValue < 10) {
+    return `You are close to free delivery, just add ${freeDeliveryLimit - deliveryData.cartValue} € worth of stuff in the cart and the delivery is free! 👀🔥🔥`
   }
 
-  const deliveryDateAndTime: Date = new Date(`${data.orderDate.toString()}T${data.orderTime}`)
+  const deliveryDateAndTime: Date = new Date(`${deliveryData.orderDate.toString()}T${deliveryData.orderTime}`)
 
   if (deliveryDateAndTime.getDay() === rushHour.weekday) {
     if (insideEvent(deliveryDateAndTime, rushHour)) {
@@ -97,11 +112,11 @@ export function hintCreator (data: Delivery): string {
     return `Fridays can be quite busy, beware of the rush hour fee between ${rushHour.startHour} - ${rushHour.endHour}! 😓`
   }
 
-  if (data.itemCount >= bulkItemFee.limit) {
+  if (deliveryData.itemCount >= bulkItemFee.limit) {
     return `If item count is equal or over ${bulkItemFee.limit}, a separate bulk fee of ${bulkItemFee.fee} € is added per item over ${bulkItemFee.limit}. 😵`
   }
 
-  if (data.itemCount >= itemSurcharge.limit) {
+  if (deliveryData.itemCount >= itemSurcharge.limit) {
     return `If item count is equal or over ${itemSurcharge.limit}, a separate surcharge fee of ${itemSurcharge.fee} € is added per item over ${itemSurcharge.limit}. 🫣`
   }
 
