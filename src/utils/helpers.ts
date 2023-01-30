@@ -8,6 +8,7 @@ import {
   rushHour
 } from '../config/config'
 import { Delivery, Fee, WeeklyEvent } from '../types'
+import { calculateDeliveryFee } from './calculateDelivery'
 
 /**
  * Normalizes value to range of 0 to 100.
@@ -65,12 +66,14 @@ export function addExtraItemFee (itemCount: number, extraCharge: Fee): number {
  * @returns {string} - String message.
  */
 export function hintCreator (data: Delivery): string {
+  const deliveryFee = calculateDeliveryFee(data)
+
   if (data.cartValue >= freeDeliveryLimit) {
     return 'FREE DELIVERY!!! 😍😍😍'
   }
 
-  if (data.cartValue >= maxDeliveryFee) {
-    return `Maximum delivery fee of ${maxDeliveryFee} reached 🤑`
+  if (deliveryFee >= maxDeliveryFee) {
+    return `Maximum delivery fee of ${maxDeliveryFee} € reached 🤑`
   }
 
   // There is exists a limit to laziness...

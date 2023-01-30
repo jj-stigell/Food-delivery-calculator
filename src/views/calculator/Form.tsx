@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React from 'react'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
@@ -54,8 +53,8 @@ const Form = (
         type="number"
         value={formik.values.cartValue}
         onChange={(e) => { onChange(e) }}
-        error={formik.touched.cartValue && Boolean(formik.errors.cartValue)}
-        helperText={formik.touched.cartValue && formik.errors.cartValue}
+        error={(formik.touched.cartValue === true) && Boolean(formik.errors.cartValue)}
+        helperText={(formik.touched.cartValue === true) && formik.errors.cartValue}
       />
       <TextField
         sx={{ p: 1 }}
@@ -66,8 +65,8 @@ const Form = (
         type="number"
         value={formik.values.deliveryDistance}
         onChange={(e) => { onChange(e) }}
-        error={formik.touched.deliveryDistance && Boolean(formik.errors.deliveryDistance)}
-        helperText={formik.touched.deliveryDistance && formik.errors.deliveryDistance}
+        error={(formik.touched.deliveryDistance === true) && Boolean(formik.errors.deliveryDistance)}
+        helperText={(formik.touched.deliveryDistance === true) && formik.errors.deliveryDistance}
       />
       <TextField
         sx={{ p: 1 }}
@@ -78,8 +77,8 @@ const Form = (
         type="number"
         value={formik.values.itemCount}
         onChange={(e) => { onChange(e) }}
-        error={formik.touched.itemCount && Boolean(formik.errors.itemCount)}
-        helperText={formik.touched.itemCount && formik.errors.itemCount}
+        error={(formik.touched.itemCount === true) && Boolean(formik.errors.itemCount)}
+        helperText={(formik.touched.itemCount === true) && formik.errors.itemCount}
       />
       <TextField
         sx={{ p: 1 }}
