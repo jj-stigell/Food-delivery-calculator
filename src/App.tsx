@@ -1,11 +1,12 @@
 import React from 'react'
-// import './App.css'
-import Calculator from './pages/Calculator'
+import Calculator from './views/calculator'
 import Logo from './components/Logo'
+import { useTheme } from '@mui/material'
 
 function App (): JSX.Element {
+  const theme = useTheme()
   return (
-    <div className="App" style={{ backgroundColor: '#00c2e8' }}>
+    <div style={{ backgroundColor: theme.palette.primary.main }}>
       <Logo />
       <Calculator />
     </div>

@@ -1,29 +1,6 @@
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-multiple-empty-lines */
-/* eslint-disable padded-blocks */
-
 import * as config from '../config/config'
 import { calculateDeliveryFee } from './calculateDelivery'
 import { Delivery } from '../types'
-
-/*
-export interface Delivery {
-  cartValue: number
-  deliveryDistance: number
-  itemCount: number
-  orderDate: Date
-  orderTime: string
-}
-
-export const initialDeliveryState: Delivery = {
-  cartValue: 1,
-  deliveryDistance: 900,
-  itemCount: 1,
-  orderDate: new Date('2023-01-01'),
-  orderTime: '10:00'
-}
-*/
 
 let testCart: Delivery = config.initialDeliveryState
 let deliveryFee: number
@@ -33,7 +10,6 @@ afterEach(() => {
 })
 
 describe('Test delivery calculator', () => {
-  
   it(`Delivery fee should be free (0 euro) when cart value is equal or higher than 'freeDeliveryLimit' ${config.freeDeliveryLimit}`, async () => {
     // should be 0 when equal to limit
     deliveryFee = calculateDeliveryFee({ ...testCart, cartValue: config.freeDeliveryLimit })
@@ -51,6 +27,9 @@ describe('Test delivery calculator', () => {
 
   it(`Maximum delivery fee should not be over the 'maxDeliveryFee' ${config.maxDeliveryFee}`, async () => {
     deliveryFee = calculateDeliveryFee({ ...testCart, itemCount: 100 })
+    expect(deliveryFee).toBe(config.maxDeliveryFee)
+
+    deliveryFee = calculateDeliveryFee({ ...testCart, deliveryDistance: 10000000 })
     expect(deliveryFee).toBe(config.maxDeliveryFee)
   })
 })

@@ -11,7 +11,7 @@ function Logo (): JSX.Element {
         alignItems: 'center'
       }}
     >
-      <Typography variant="h2" color="white" component="h2">
+      <Typography variant="h1" color="white" component="h2" fontFamily="Brush Script MT">
         Wolt
       </Typography>
     </Box>

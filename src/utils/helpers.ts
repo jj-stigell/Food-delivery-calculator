@@ -1,20 +1,49 @@
 import {
   freeDeliveryLimit,
   deliveryFeeBase,
+  surchargeLimit,
   surcharge,
   bulkFee,
   rushHour
 } from '../config/config'
-import { Delivery } from '../types'
+import { Delivery, WeeklyEvent } from '../types'
 
 /**
- * Normalizes value to be between MIN and MAX.
+ * Normalizes value to range of 0 to 100.
  * @param {number} value - value between the MIN and MAX.
  * @param {number} MIN - Minimum value of the range.
  * @param {number} MAX - Maximum value of the range.
  * @returns {number} - Normalized value.
  */
-export const normalize = (value: number, MIN: number, MAX: number): number => ((value - MIN) * 100) / (MAX - MIN)
+export function normalize (value: number, MIN: number, MAX: number): number {
+  let fixedValue = value
+  if (value > MAX) fixedValue = MAX
+  if (value < MIN) fixedValue = MIN
+  return ((fixedValue - MIN) * 100) / (MAX - MIN)
+}
+
+/**
+ * Check is date and time falls under the events time slot.
+ * @param {Date} dateAndTime - Date and time to which the event time is compared to.
+ * @param {WeeklyEvent} event - Event information.
+ * @returns {boolean} - True if date and time are inside the events period of time, false if outside of that time period.
+ */
+export function insideEvent (dateAndTime: Date, event: WeeklyEvent): boolean {
+  return (dateAndTime.getDay() === event.weekday &&
+  dateAndTime.getHours() >= event.startHour &&
+  dateAndTime.getHours() <= event.endHour &&
+  dateAndTime.getMinutes() === 0)
+}
+
+/**
+ * Calculate and return surcharge amount, which is the difference of cart value and surchargeLimit.
+ * @param {number} cartValue - Current value of the users cart.
+ * @param {number} surchargeLimit - Limit under which the surcharge is added.
+ * @returns {number} - Amount of surcharge added.
+ */
+export function addSurcharge (cartValue: number, surchargeLimit: number): number {
+  return Math.max(0, surchargeLimit - cartValue)
+}
 
 /**
  * Returns short hint message concerning the delivery status.
@@ -36,10 +65,10 @@ export function hintCreator (data: Delivery): string {
     return `You are close to free delivery, just add ${freeDeliveryLimit - data.cartValue} € worth of stuff in the cart and the delivery is free! 👀🔥🔥`
   }
 
-  const deliveryDate: Date = new Date(`${data.orderDate.toString()}T${data.orderTime}`)
+  const deliveryDateAndTime: Date = new Date(`${data.orderDate.toString()}T${data.orderTime}`)
 
-  if (deliveryDate.getDay() === rushHour.weekday) {
-    if (deliveryDate.getHours() >= rushHour.startHour && deliveryDate.getHours() <= rushHour.endHour) {
+  if (deliveryDateAndTime.getDay() === rushHour.weekday) {
+    if (insideEvent(deliveryDateAndTime, rushHour)) {
       return `It is rush hour time, delivery fee will be multiplied by ${rushHour.multiplier} 😱`
     }
 
@@ -55,5 +84,5 @@ export function hintCreator (data: Delivery): string {
     return `If item count is equal or over ${surcharge.limit}, a separate surcharge fee of ${surcharge.fee} € is added per item over ${surcharge.limit}. 🫣`
   }
 
-  return `Let's calculate the delivery fees! Base fee is ${deliveryFeeBase.fee} € 🚴🏻‍♀️🚴🏽‍♀️`
+  return `Let's calculate the delivery fees! Base fee is ${deliveryFeeBase.fee} € + possible surcharge when when cart value less than surcharge limit ${surchargeLimit} € 🚴🏻‍♀️🚴🏽‍♀️`
 }

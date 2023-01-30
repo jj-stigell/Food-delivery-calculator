@@ -16,13 +16,11 @@ App parameters (delivery fees, distances, default cart, etc.) can be changed fro
 
 Demo running at https://delivery-calculator.onrender.com/ (Running on free tier so give it minute or two to start up)
 
-
 ## Built with
 
 - [React](https://reactjs.org/) with [typescript](https://www.typescriptlang.org/) and [Node.js](https://nodejs.org/en/) [v16.15.1](https://nodejs.org/tr/blog/release/v16.15.1/)
 - Calculator form with [Formik](https://github.com/jaredpalmer/formik) and [Yup](https://github.com/jquense/yup) validation
 - Stylized components with [MUI](https://github.com/mui/material-ui)
-
 
 ## Running the app
 
@@ -46,10 +44,8 @@ Tests can be run with the command:
 $ npm run test
 ```
 
-
 ## Running with Docker
 
-If your local machine has different node version and issues come up during building or running the app.
 You can also run the application with Docker.
 
 To build the Docker image run command in the project root:

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React from 'react'
 import { useFormik } from 'formik'
-import { Delivery } from '../types'
-import { validateDeliveryInput as validationSchema } from '../utils/validationSchemas'
+import { Delivery } from '../../types'
+import { validateDeliveryInput as validationSchema } from '../../utils/validationSchemas'
 import { TextField, Box } from '@mui/material'
 
 const Form = (
@@ -29,7 +29,7 @@ const Form = (
         fullWidth
         id="cartValue"
         name="cartValue"
-        label="Cart Value"
+        label="Cart Value (€)"
         type="number"
         value={formik.values.cartValue}
         onChange={(e) => { onChange(e) }}
@@ -41,7 +41,7 @@ const Form = (
         fullWidth
         id="deliveryDistance"
         name="deliveryDistance"
-        label="Delivery Distance"
+        label="Delivery Distance (meters)"
         type="number"
         value={formik.values.deliveryDistance}
         onChange={(e) => { onChange(e) }}
@@ -53,7 +53,7 @@ const Form = (
         fullWidth
         id="itemCount"
         name="itemCount"
-        label="Item Count"
+        label="Item Count (pcs)"
         type="number"
         value={formik.values.itemCount}
         onChange={(e) => { onChange(e) }}
@@ -65,7 +65,7 @@ const Form = (
         fullWidth
         id="orderDate"
         name="orderDate"
-        label="Date"
+        label="Date (yyyy/mm/dd)"
         type="date"
         value={formik.values.orderDate}
         onChange={(e) => { onChange(e) }}
@@ -75,7 +75,7 @@ const Form = (
         fullWidth
         id="orderTime"
         name="orderTime"
-        label="Time"
+        label="Time (hh:mm)"
         type="time"
         value={formik.values.orderTime}
         onChange={(e) => { onChange(e) }}
