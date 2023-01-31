@@ -36,7 +36,7 @@ describe('Test helper functions', () => {
       expect(insideEvent(deliveryDateAndTime, event)).toBeFalsy()
 
       // Time is just after end time
-      deliveryDateAndTime = new Date('2023-01-13T19:59')
+      deliveryDateAndTime = new Date('2023-01-13T20:00')
       expect(insideEvent(deliveryDateAndTime, event)).toBeFalsy()
     })
   })

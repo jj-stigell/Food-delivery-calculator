@@ -3,7 +3,7 @@ import { Delivery, Fee, WeeklyEvent } from '../types'
 /** Initial state for the delivery information. */
 export const initialDeliveryState: Delivery = {
   cartValue: 1,
-  deliveryDistance: 900,
+  deliveryDistance: 990,
   itemCount: 1,
   orderDate: new Date('2023-01-01'),
   orderTime: '10:00'
