@@ -33,8 +33,7 @@ export function normalize (value: number, MIN: number, MAX: number): number {
 export function insideEvent (dateAndTime: Date, event: WeeklyEvent): boolean {
   return (dateAndTime.getDay() === event.weekday &&
   dateAndTime.getHours() >= event.startHour &&
-  dateAndTime.getHours() <= event.endHour &&
-  dateAndTime.getMinutes() === 0)
+  dateAndTime.getHours() <= event.endHour)
 }
 
 /**
