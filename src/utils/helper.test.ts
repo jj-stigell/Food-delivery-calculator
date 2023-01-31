@@ -1,11 +1,17 @@
 import * as config from '../config/config'
-import { WeeklyEvent } from '../types'
-import { insideEvent, normalize, addSurcharge } from './helpers'
+import { Fee, WeeklyEvent } from '../types'
+import { insideEvent, normalize, addSurcharge, addExtraItemFee, distanceFee } from './helpers'
 
 let event: WeeklyEvent = config.rushHour
+let itemSurcharge: Fee = config.itemSurcharge
+let deliveryFeeBase: Fee = config.deliveryFeeBase
+let deliveryExtended: Fee = config.deliveryExtended
 
 afterEach(() => {
   event = config.rushHour
+  itemSurcharge = config.itemSurcharge
+  deliveryFeeBase = config.deliveryFeeBase
+  deliveryExtended = config.deliveryExtended
 })
 
 describe('Test helper functions', () => {
@@ -78,6 +84,46 @@ describe('Test helper functions', () => {
       expect(addSurcharge(4, 404)).toBe(400)
       expect(addSurcharge(60, 100)).toBe(40)
       expect(addSurcharge(124, 224)).toBe(100)
+    })
+  })
+
+  describe('Test addExtraItemFee function', () => {
+    it('Return 0 when item count is lower than required for charging extra per item', async () => {
+      expect(addExtraItemFee(itemSurcharge.limit - 1, itemSurcharge)).toBe(0)
+    })
+
+    it('Return extra fee for one item when item count is equal to the limit after which extra fee is charged', async () => {
+      expect(addExtraItemFee(itemSurcharge.limit, itemSurcharge)).toBe(itemSurcharge.fee)
+    })
+
+    it('Return extra fee for 5 items when item count is 4 over the limit after which extra fee is charged', async () => {
+      expect(addExtraItemFee(itemSurcharge.limit + 4, itemSurcharge)).toBe(itemSurcharge.fee * 5)
+    })
+  })
+
+  describe('Test distanceFee function', () => {
+    it('Return base delivery fee when distance is less than base fee distance limit', async () => {
+      expect(distanceFee(deliveryFeeBase.limit - 1, deliveryFeeBase, deliveryExtended)).toBe(deliveryFeeBase.fee)
+    })
+
+    it('Return base delivery fee when distance is equal to base fee distance limit', async () => {
+      expect(distanceFee(deliveryFeeBase.limit, deliveryFeeBase, deliveryExtended)).toBe(deliveryFeeBase.fee)
+    })
+
+    it('Return base delivery fee + 1 x extended delivery when distance over base limit, but less than extended limit when distance is over base limit', async () => {
+      expect(distanceFee(deliveryFeeBase.limit + 1, deliveryFeeBase, deliveryExtended)).toBe(deliveryFeeBase.fee + deliveryExtended.fee)
+    })
+
+    it('Return base delivery fee + 1 x extended delivery when distance equal to extended limit', async () => {
+      expect(distanceFee(deliveryFeeBase.limit + deliveryExtended.limit, deliveryFeeBase, deliveryExtended)).toBe(deliveryFeeBase.fee + deliveryExtended.fee)
+    })
+
+    it('Return base delivery fee + 2 x extended delivery when distance is one time over the extended limit', async () => {
+      expect(distanceFee(deliveryFeeBase.limit + deliveryExtended.limit + 1, deliveryFeeBase, deliveryExtended)).toBe(deliveryFeeBase.fee + 2 * deliveryExtended.fee)
+    })
+
+    it('Return base delivery fee + 10 x extended delivery when distance is 9 times over the extended limit', async () => {
+      expect(distanceFee(deliveryFeeBase.limit + deliveryExtended.limit * 9 + 1, deliveryFeeBase, deliveryExtended)).toBe(deliveryFeeBase.fee + 10 * deliveryExtended.fee)
     })
   })
 })

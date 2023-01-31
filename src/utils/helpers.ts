@@ -61,16 +61,16 @@ export function addExtraItemFee (itemCount: number, extraCharge: Fee): number {
 }
 /**
  * Calculate delivery fee based on initial distance + extented distance.
- * @param {Delivery} deliveryData - Delivery data.
+ * @param {number} deliveryDistance - Current delivery distance.
  * @param {Fee} deliveryFeeBase - Base delivery starting distance and unit price.
  * @param {Fee} deliveryExtended - Extended delivery starting distance and unit price.
  * @returns {number} - Delivery fee amount for particular distance.
  */
-export function distanceFee (deliveryData: Delivery, deliveryFeeBase: Fee, deliveryExtended: Fee): number {
+export function distanceFee (deliveryDistance: number, deliveryFeeBase: Fee, deliveryExtended: Fee): number {
   // If distance more than base limit, increase fee according to extended fee, round the multiplier up to closest whole number
-  if (deliveryData.deliveryDistance > deliveryFeeBase.limit) {
-    const extendedFeeMultiplier: number = Math.ceil((deliveryData.deliveryDistance - deliveryFeeBase.limit) / deliveryExtended.limit)
-    return extendedFeeMultiplier * deliveryExtended.fee
+  if (deliveryDistance > deliveryFeeBase.limit) {
+    const extendedFeeMultiplier: number = Math.ceil((deliveryDistance - deliveryFeeBase.limit) / deliveryExtended.limit)
+    return extendedFeeMultiplier * deliveryExtended.fee + deliveryFeeBase.fee
   }
   return deliveryFeeBase.fee
 }

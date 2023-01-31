@@ -55,6 +55,7 @@ const Form = (
         onChange={(e) => { onChange(e) }}
         error={(formik.touched.cartValue === true) && Boolean(formik.errors.cartValue)}
         helperText={(formik.touched.cartValue === true) && formik.errors.cartValue}
+        inputProps={{ style: { backgroundColor: 'white', borderRadius: '5px' } }}
       />
       <TextField
         sx={{ p: 1 }}
@@ -67,6 +68,7 @@ const Form = (
         onChange={(e) => { onChange(e) }}
         error={(formik.touched.deliveryDistance === true) && Boolean(formik.errors.deliveryDistance)}
         helperText={(formik.touched.deliveryDistance === true) && formik.errors.deliveryDistance}
+        inputProps={{ style: { backgroundColor: 'white', borderRadius: '5px' } }}
       />
       <TextField
         sx={{ p: 1 }}
@@ -79,6 +81,7 @@ const Form = (
         onChange={(e) => { onChange(e) }}
         error={(formik.touched.itemCount === true) && Boolean(formik.errors.itemCount)}
         helperText={(formik.touched.itemCount === true) && formik.errors.itemCount}
+        inputProps={{ style: { backgroundColor: 'white', borderRadius: '5px' } }}
       />
       <TextField
         sx={{ p: 1 }}
@@ -89,6 +92,7 @@ const Form = (
         type="date"
         value={formik.values.orderDate}
         onChange={(e) => { onChange(e) }}
+        inputProps={{ style: { backgroundColor: 'white', borderRadius: '5px' } }}
       />
       <TextField
         sx={{ p: 1 }}
@@ -99,6 +103,7 @@ const Form = (
         type="time"
         value={formik.values.orderTime}
         onChange={(e) => { onChange(e) }}
+        inputProps={{ style: { backgroundColor: 'white', borderRadius: '5px' } }}
       />
     </Box>
   )

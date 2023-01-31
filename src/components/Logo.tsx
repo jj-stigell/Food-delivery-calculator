@@ -14,7 +14,7 @@ function Logo (): JSX.Element {
       <Typography sx={{
         textShadow: '3px 3px #1167a8',
         color: 'white',
-        fontFamily: 'Brush Script MT'
+        fontFamily: 'Yellowtail'
       }} variant="h1" component="h2">
         Wolt
       </Typography>
