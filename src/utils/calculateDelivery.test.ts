@@ -29,7 +29,7 @@ describe('Test delivery calculator', () => {
     deliveryFee = calculateDeliveryFee({ ...testCart, itemCount: 100 })
     expect(deliveryFee).toBe(config.maxDeliveryFee)
 
-    deliveryFee = calculateDeliveryFee({ ...testCart, deliveryDistance: 10000000 })
+    deliveryFee = calculateDeliveryFee({ ...testCart, deliveryDistance: testCart.deliveryDistance * 1000 })
     expect(deliveryFee).toBe(config.maxDeliveryFee)
   })
 })

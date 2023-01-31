@@ -1,3 +1,4 @@
+/* Type for delivery information. */
 export interface Delivery {
   cartValue: number
   deliveryDistance: number
@@ -6,11 +7,13 @@ export interface Delivery {
   orderTime: string
 }
 
+/* Type for fee, limit indicates when the fee becomes applicable. */
 export interface Fee {
   limit: number
   fee: number
 }
 
+/* Type for weekly occurring event. */
 export interface WeeklyEvent {
   weekday: number
   startHour: number
