@@ -22,7 +22,7 @@ export function calculateDeliveryFee (deliveryData: Delivery): number {
   if (deliveryData.cartValue >= freeDeliveryLimit) return 0
 
   // Initialize delivery fee with the distance fee included
-  let deliveryFee: number = distanceFee(deliveryData, deliveryFeeBase, deliveryExtended)
+  let deliveryFee: number = distanceFee(deliveryData.deliveryDistance, deliveryFeeBase, deliveryExtended)
 
   // Add surcharges
   deliveryFee += addSurcharge(deliveryData.cartValue, surchargeLimit)
