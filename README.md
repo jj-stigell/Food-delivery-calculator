@@ -18,7 +18,7 @@ Demo running at https://delivery-calculator.onrender.com/ (Running on free tier 
 
 ## Built with
 
-- [React](https://reactjs.org/) with [typescript](https://www.typescriptlang.org/) and [Node.js](https://nodejs.org/en/) [v16.15.1](https://nodejs.org/tr/blog/release/v16.15.1/)
+- [React](https://reactjs.org/) with [typescript](https://www.typescriptlang.org/) and [Node.js](https://nodejs.org/en/)
 - Calculator form with [Formik](https://github.com/jaredpalmer/formik) and [Yup](https://github.com/jquense/yup) validation
 - Stylized components with [MUI](https://github.com/mui/material-ui)
 
