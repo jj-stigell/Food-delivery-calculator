@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
 
-function Logo (): JSX.Element {
+export default function Logo (): JSX.Element {
   return (
     <Box
       sx={{
@@ -21,5 +21,3 @@ function Logo (): JSX.Element {
     </Box>
   )
 }
-
-export default Logo

@@ -1,3 +1,7 @@
+# DEMO
+
+Demo running at https://delivery-calculator.onrender.com/
+
 # Wolt Delivery Fee Calculator Frontend Assignment
 
 ## Table of Contents
@@ -13,8 +17,6 @@ Frontend assignment for the Wolt [intership](https://github.com/woltapp/engineer
 Delivery fee calculator app calculates a delivery fee based on user input and shows the calculated delivery fee to the user.
 
 App parameters (delivery fees, distances, default cart, etc.) can be changed from the config.ts file in directory /src/config
-
-Demo running at https://delivery-calculator.onrender.com/ (Running on free tier so give it minute or two to start up)
 
 ## Built with
 

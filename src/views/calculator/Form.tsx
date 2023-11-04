@@ -4,10 +4,10 @@ import { useFormik } from 'formik'
 import { Delivery } from '../../types'
 import { TextField, Box } from '@mui/material'
 
-const Form = (
+export default function Form (
   { deliveryData, setDeliveryData }:
   { deliveryData: Delivery, setDeliveryData: React.Dispatch<React.SetStateAction<Delivery>> }
-): JSX.Element => {
+): JSX.Element {
   const validationSchema: yup.AnySchema = yup.object({
     cartValue: yup
       .number()
@@ -108,5 +108,3 @@ const Form = (
     </Box>
   )
 }
-
-export default Form
