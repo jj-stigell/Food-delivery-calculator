@@ -3,14 +3,12 @@ import Calculator from './views/calculator'
 import Logo from './components/Logo'
 import { useTheme } from '@mui/material'
 
-function App (): JSX.Element {
+export default function App (): JSX.Element {
   const theme = useTheme()
   return (
-    <div style={{ backgroundColor: theme.palette.primary.main }}>
+    <div style={{ backgroundColor: theme.palette.primary.main, minHeight: '100vh' }}>
       <Logo />
       <Calculator />
     </div>
   )
 }
-
-export default App

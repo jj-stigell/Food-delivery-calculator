@@ -5,10 +5,10 @@ import { freeDeliveryLimit } from '../../config/config'
 import ProgressBar from '../../components/ProgressBar'
 import { Typography } from '@mui/material'
 
-const Price = (
+export default function Price (
   { deliveryData }:
   { deliveryData: Delivery }
-): JSX.Element => {
+): JSX.Element {
   const calculationResult: number = calculateDeliveryFee(deliveryData)
 
   return (
@@ -17,10 +17,13 @@ const Price = (
         Price of delivery is {calculationResult.toFixed(2)} €
       </Typography>
       { deliveryData.cartValue < freeDeliveryLimit &&
-      <ProgressBar value={deliveryData.cartValue} MIN={0} MAX={freeDeliveryLimit} message={`${freeDeliveryLimit - deliveryData.cartValue} € until free delivery! 😎`} />
+        <ProgressBar
+          value={deliveryData.cartValue}
+          MIN={0}
+          MAX={freeDeliveryLimit}
+          message={`${freeDeliveryLimit - deliveryData.cartValue} € until free delivery! 😎`}
+        />
       }
     </>
   )
 }
-
-export default Price

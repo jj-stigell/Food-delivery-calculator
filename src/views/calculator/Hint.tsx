@@ -3,10 +3,10 @@ import { Typography } from '@mui/material'
 import { Delivery } from '../../types'
 import { hintCreator } from '../../utils/helpers'
 
-const Hint = (
+export default function Hint (
   { deliveryData }:
   { deliveryData: Delivery }
-): JSX.Element => {
+): JSX.Element {
   const hint: string = hintCreator(deliveryData)
 
   return (
@@ -15,5 +15,3 @@ const Hint = (
     </Typography>
   )
 }
-
-export default Hint

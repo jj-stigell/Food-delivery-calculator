@@ -13,7 +13,7 @@ import {
   Typography
 } from '@mui/material'
 
-function Calculator (): JSX.Element {
+export default function Calculator (): JSX.Element {
   const theme = createTheme()
   const [deliveryData, setDeliveryData] = useState<Delivery>(initialDeliveryState)
 
@@ -40,5 +40,3 @@ function Calculator (): JSX.Element {
     </ThemeProvider>
   )
 }
-
-export default Calculator

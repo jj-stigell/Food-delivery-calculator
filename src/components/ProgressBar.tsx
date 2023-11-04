@@ -15,10 +15,10 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   }
 }))
 
-const ProgressBar = (
+export default function ProgressBar (
   { value, MIN, MAX, message }:
   { value: number, MIN: number, MAX: number, message: string | null }
-): JSX.Element => {
+): JSX.Element {
   const normalizedValue: number = normalize(value, MIN, MAX)
 
   return (
@@ -27,5 +27,3 @@ const ProgressBar = (
     </Box>
   )
 }
-
-export default ProgressBar
